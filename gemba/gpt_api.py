@@ -128,7 +128,8 @@ class GptApi:
 
         answers = []
         for choice in response["choices"]:
-            answer = choice['text'].strip()
+            # updated due to API changes
+            answer = choice["message"]["content"].strip()
             # one of the responses didn't finish, we need to request more tokens
             if choice["finish_reason"] != "stop" and model != "text-chat-davinci-002":  # TODO remove exception
                 if self.verbose:
@@ -159,9 +160,10 @@ class GptApi:
                 presence_penalty=0,
                 stop=None)
         else:
-            return openai.Completion.create(
+            # updated due to API changes
+            return openai.ChatCompletion.create(
                 model=self.deployments[model],
-                prompt=prompt,
+                messages=[{"role": "user", "content": prompt}],
                 temperature=temperature/10,
                 max_tokens=max_tokens,
                 top_p=1,

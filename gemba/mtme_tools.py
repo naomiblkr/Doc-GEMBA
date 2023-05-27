@@ -34,7 +34,8 @@ def eval_metrics(eval_sets, langs, levels, primary_only, k, gold_name='std',
     # First task is global accuracy, iff more than one language is given.
     if len(langs) > 0:
         evs_list = [eval_sets[lp] for lp in langs]
-        main_refs = [{evs.std_ref} for evs in evs_list]
+        # changed this from refA to refB
+        main_refs = [{'refB'} for evs in evs_list]
         close_refs = [set() for evs in evs_list]
         if gold_name == 'std':
             gold = evs_list[0].StdHumanScoreName('sys')

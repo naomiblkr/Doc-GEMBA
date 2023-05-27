@@ -2,8 +2,7 @@
 # for Azure API, specify model name as a key and deployment name as a value
 # for OpenAI API, specify model name as a key and a value
 credentials = {
-    "deployments": {"text-davinci-002": "text-davinci-002"},
-    "api_base": "https://******.openai.azure.com/",
-    "api_key": "********************************",
+    "deployments": {"gpt-3.5-turbo": "gpt-3.5-turbo"},
+    "api_key": "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",
     "requests_per_second_limit": 1
 }
