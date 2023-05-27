@@ -4,14 +4,16 @@ from gemba.mtme_tools import eval_metrics
 
 
 dataset = "wmt22"
-focus_lps = ['en-de', 'en-ru', 'zh-en']
+focus_lps = ['en-de']
 FINAL_MODELS = []
-path = "scores/mt-metrics-eval-v2"
+path = "mt-metrics-eval-v2"
 
 eval_sets = {}
 for lp in focus_lps:
     print(lp, file=sys.stderr)
-    eval_sets[lp] = data.EvalSet(dataset, lp, True, path=path)
+    eval_sets[lp] = data.EvalSet(dataset, lp, read_stored_metric_scores=True, path=path)
+
+print(eval_sets['en-de'].metric_names)
 
 appraise_results = eval_metrics(
     eval_sets, focus_lps, ['sys'], primary_only=False, k=0,
