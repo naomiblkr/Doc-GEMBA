@@ -8,8 +8,8 @@ from gemba.scores import Scores
 
 def main():
     scenarios = [
-        ["text-davinci-003", "GEMBA-DA", [["wmt22", "en-de"], ["wmt22", "zh-en"], ["wmt22", "en-ru"]], ],
-        ["text-davinci-003", "GEMBA-DA_ref", [["wmt22", "en-de"], ["wmt22", "zh-en"], ["wmt22", "en-ru"]], ],
+        ["gpt-3.5-turbo", "doc-GEMBA-SQM_ref", [["wmt22", "en-de"]], ],
+        ["gpt-3.5-turbo", "doc-GEMBA-DA_ref", [["wmt22", "en-de"]], ],
     ]
 
     gptapi = GptApi(credentials)
@@ -52,6 +52,7 @@ def main():
                     "target_lang": language_codes[lp.split("-")[1]],
                 }
                 prompt = prompts[annotation]["prompt"].format(**data)
+                print(prompt)
                 parsed_answers = gptapi.request(prompt, use_model, prompts[annotation]["validate_answer"], cache=cache)
 
                 scores.assign_score(system, hypothesis_index, parsed_answers[0]['answer'], parsed_answers[0]['temperature'])
